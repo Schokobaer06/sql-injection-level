@@ -1,0 +1,22 @@
+components:
+- layout_properties: {slot: default}
+  name: text_box_1
+  properties: {}
+  type: TextBox
+- layout_properties: {slot: default}
+  name: text_box_2
+  properties: {}
+  type: TextBox
+- layout_properties: {slot: default}
+  name: button_1
+  properties: {text: button_1}
+  type: Button
+container:
+  properties:
+    html: |-
+      <center style="font-style:italic; color:#888; margin: 3em;">
+        (Insert your custom HTML here)
+      </center>
+      <div anvil-slot="default"></div>
+  type: HtmlTemplate
+is_package: true
