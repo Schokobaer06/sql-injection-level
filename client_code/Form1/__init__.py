@@ -14,43 +14,68 @@ class Form1(Form1Template):
   def __init__(self, **properties):
     # Set Form properties and Data Bindings.
     self.init_components(**properties)
-    self.button_2.visible = False
-    self.button_3.visible = False
+   #self.button_2.enabled = False
+    #self.button_3.enabled = False
     # Any code you write here will run before the form opens.
 
   def button_1_click(self, **event_args):
     self.actualLevel = 1
+    self.label_actualLevel.text = f"Level {self.actualLevel}"
     """This method is called when the button is clicked"""
     self.cleartext()
-    pass
+    self.clearlabel()
+    
 
   def button_2_click(self, **event_args):
     self.actualLevel = 2
+    self.label_actualLevel.text = f"Level {self.actualLevel}"
     """This method is called when the button is clicked"""
     if self.isLevel1Completed is True:
       self.cleartext()
+      self.clearlabel()
     else:
       pass
 
   def button_3_click(self, **event_args):
     self.actualLevel = 3
+    self.label_actualLevel.text = f"Level {self.actualLevel}"
     """This method is called when the button is clicked"""
     if self.isLevel2Completed is True:
       self.cleartext()
+      self.clearlabel()
     else:
       pass
 
   def button_login_click(self, **event_args):
     """This method is called when the button is clicked"""
-    self.cleartext()
+    #self.cleartext()
     if self.actualLevel == 1:
-      pass
+      status, result = anvil.server.call('level1',self.textbox_name.text,self.textbox_password.text)
+      self.label_status.visible = True
+      if status is True:
+        self.label_status.text = "Login erfolgreich!"
+        self.label_result.visible = True
+        self.label_result.text = f"ID: {result[0].get('id')}\nName: {result[0].get('username')}\nPassword: {result[0].get('password')}"
+        self.isLevel1Completed = True
+        self.button_2.enabled = True
+      elif status is False:  
+        self.label_status.text = "Login Falsch!"
+        self.label_result.visible = False     
+      print(result)
+
+      
+      self.cleartext()
     elif self.actualLevel == 2:
-      pass
+      self.cleartext()
     elif self.actualLevel ==3:
-      pass
+      self.cleartext()
     else:
       pass
   def cleartext(self):
-    self.textbox_name = ""
-    self.textbox_password = ""
+    self.textbox_name.text = ""
+    self.textbox_password.text = ""
+  def clearlabel(self):
+    self.label_result.visible = False
+    self.label_status.visible = False
+    self.label_result.text = ""
+    self.label_status.text = ""
