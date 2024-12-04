@@ -14,8 +14,8 @@ db_schema:
       type: string
     server: full
     title: Files
-name: Classic 1
-package_name: Classic_1
+name: SQL Injection Level
+package_name: SQL_Injection_Level
 runtime_options:
   client_version: '3'
   server_spec: {base: python310-minimal}
