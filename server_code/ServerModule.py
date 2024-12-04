@@ -4,7 +4,7 @@ import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
 import anvil.server
-
+import sqlite3
 # This is a server module. It runs on the Anvil server,
 # rather than in the user's browser.
 #
@@ -17,6 +17,8 @@ import anvil.server
 #   print("Hello, " + name + "!")
 #   return 42
 #
+conn = sqlite3.connect([data_files['users.db']])
+
 @anvil.server.callable
 def level1():
   pass
