@@ -54,10 +54,12 @@ class Form1(Form1Template):
       self.label_status.visible = True
       if status is True:
         self.label_status.text = "Login erfolgreich!"
-        #self.label_result.visible = True
-        #self.label_result.text = f"ID: {result[0].get('id')}\nName: {result[0].get('username')}\nPassword: {result[0].get('password')}"
+        self.label_result.visible = True
+        self.label_result.text = f"ID: {result[0].get('id')}\nName: {result[0].get('username')}\nPassword: {result[0].get('password')}"
         self.isLevel1Completed = True
         self.button_2.enabled = True
+        self.button_1.background = "Green"
+        self.button_1.foreground = "White"
         #self.button_2_click()
       else:  
         self.label_status.text = "Login Falsch!"
@@ -75,6 +77,8 @@ class Form1(Form1Template):
         self.label_result.text = f"ID: {result[0].get('id')}\nName: {result[0].get('username')}\nPassword: {result[0].get('password')}"
         self.isLevel2Completed = True
         self.button_3.enabled = True
+        self.button_2.background = "Green"
+        self.button_2.foreground = "White"
         #self.button_3_click()
       else:  
         self.label_status.text = "Login Falsch!"
