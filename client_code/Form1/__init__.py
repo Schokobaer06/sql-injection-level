@@ -50,23 +50,38 @@ class Form1(Form1Template):
     """This method is called when the button is clicked"""
     #self.cleartext()
     if self.actualLevel == 1:
-      status, result = anvil.server.call('level1',self.textbox_name.text,self.textbox_password.text)
+      result, status, query = anvil.server.call('level1',self.textbox_name.text,self.textbox_password.text)
+      self.label_status.visible = True
+      if status is True:
+        self.label_status.text = "Login erfolgreich!"
+        #self.label_result.visible = True
+        #self.label_result.text = f"ID: {result[0].get('id')}\nName: {result[0].get('username')}\nPassword: {result[0].get('password')}"
+        self.isLevel1Completed = True
+        self.button_2.enabled = True
+        #self.button_2_click()
+      else:  
+        self.label_status.text = "Login Falsch!"
+        self.label_result.visible = False     
+      print(result, query, status)
+
+      
+      self.cleartext()
+    elif self.actualLevel == 2:
+      status, result, query = anvil.server.call('level2',self.textbox_name.text,self.textbox_password.text)
       self.label_status.visible = True
       if status is True:
         self.label_status.text = "Login erfolgreich!"
         self.label_result.visible = True
         self.label_result.text = f"ID: {result[0].get('id')}\nName: {result[0].get('username')}\nPassword: {result[0].get('password')}"
-        self.isLevel1Completed = True
-        self.button_2.enabled = True
-      elif status is False:  
+        self.isLevel2Completed = True
+        self.button_3.enabled = True
+        #self.button_3_click()
+      else:  
         self.label_status.text = "Login Falsch!"
         self.label_result.visible = False     
       print(result)
-
-      
-      self.cleartext()
-    elif self.actualLevel == 2:
-      self.cleartext()
+      print(query)
+      self.cleartext()      
     elif self.actualLevel ==3:
       self.cleartext()
     else:

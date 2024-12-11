@@ -70,8 +70,8 @@ def level1(username, password):
     cursor.execute(query)
     result = cursor.fetchall()  # Fetch all matching rows
     if result:
-        return True, [dict(row) for row in result]  # Convert rows to dictionaries
-    return False, []
+        return [dict(row) for row in result], True, query  # Convert rows to dictionaries
+    return [], False, query
 
 @anvil.server.callable
 def level2(username, password):
@@ -79,8 +79,8 @@ def level2(username, password):
     cursor.execute(query, (username, password))  # Pass parameters as a tuple
     result = cursor.fetchall()
     if result:
-        return True, [dict(row) for row in result]
-    return False, []
+        return True, [dict(row) for row in result], query
+    return False, [], query
 
 @anvil.server.callable
 def level3(username, password):
@@ -90,5 +90,5 @@ def level3(username, password):
     if result:
         hashed_pw = result["password"]
         if bcrypt.checkpw(password.encode(), hashed_pw.encode()):
-            return True, {"username": result["username"]}  # Return username if login is successful
-    return False, {}
+            return True, {"username": result["username"]}, query # Return username if login is successful
+    return False, {}, query
